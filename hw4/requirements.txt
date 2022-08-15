@@ -1,6 +1,6 @@
 numpy
 gym[atari]==0.17.2
-mujoco-py==2.0.2.2
+free-mujoco-py==2.1.6
 pybullet==3.2.0
 tensorboard==2.3.0
 tensorboardX==1.8
