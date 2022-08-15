@@ -4,8 +4,7 @@ import torch.optim as optim
 from torch.nn import utils
 from torch import nn
 
-from ift6163.infrastructure import pytorch_util as ptu
-from ift6163.infrastructure import dqn_utils as dqnu
+from cs285.infrastructure import pytorch_util as ptu
 
 
 class DQNCritic(BaseCritic):
@@ -14,9 +13,6 @@ class DQNCritic(BaseCritic):
         super().__init__(**kwargs)
         self.env_name = hparams['env_name']
         self.ob_dim = hparams['ob_dim']
-        self.size = hparams['size_hidden_critic']
-        self.n_layers = hparams['n_layers_critic']
-        self.learning_rate = hparams['critic_learning_rate']
 
         if isinstance(self.ob_dim, int):
             self.input_shape = (self.ob_dim,)
@@ -27,16 +23,11 @@ class DQNCritic(BaseCritic):
         self.double_q = hparams['double_q']
         self.grad_norm_clipping = hparams['grad_norm_clipping']
         self.gamma = hparams['gamma']
-        if hparams['double_q']:
-            out_size = 2
-        else:
-            out_size = 1
 
         self.optimizer_spec = optimizer_spec
         network_initializer = hparams['q_func']
         self.q_net = network_initializer(self.ob_dim, self.ac_dim)
         self.q_net_target = network_initializer(self.ob_dim, self.ac_dim)
-        
         self.optimizer = self.optimizer_spec.constructor(
             self.q_net.parameters(),
             **self.optimizer_spec.optim_kwargs
@@ -48,7 +39,6 @@ class DQNCritic(BaseCritic):
         self.loss = nn.SmoothL1Loss()  # AKA Huber loss
         self.q_net.to(ptu.device)
         self.q_net_target.to(ptu.device)
-        print(self.q_net,self.q_net_target)
 
     def update(self, ob_no, ac_na, next_ob_no, reward_n, terminal_n):
         """
@@ -116,6 +106,4 @@ class DQNCritic(BaseCritic):
     def qa_values(self, obs):
         obs = ptu.from_numpy(obs)
         qa_values = self.q_net(obs)
-        if self.double_q:
-            qa_values = qa_values.view(-1,2,self.ac_dim)
         return ptu.to_numpy(qa_values)
