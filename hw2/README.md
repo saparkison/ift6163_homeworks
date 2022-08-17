@@ -20,7 +20,7 @@ You will then need to implement code in the following files:
 
 The relevant sections are marked with `TODO`.
 
-You may also want to look through [run_hw2_mb.py](run_hw4_mb.py) (if running locally) or [scripts/run_hw2_mb.ipynb](ift6163/scripts/run_hw2_mb.ipynb) (if running on Colab), though you will not need to edit this files beyond changing runtime arguments in the Colab notebook.
+You may also want to look through [run_hw2_mb.py](run_hw2_mb.py) (if running locally) or [scripts/run_hw2_mb.ipynb](ift6163/scripts/run_hw2_mb.ipynb) (if running on Colab), though you will not need to edit this files beyond changing runtime arguments in the Colab notebook.
 
-See the [assignment PDF](ift6163_hw2.pdf) for more details on what files to edit.
+See the [assignment PDF](IFT6163_Homework_Writeup_MBRL.pdf) for more details on what files to edit.
 
